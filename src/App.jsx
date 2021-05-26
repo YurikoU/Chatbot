@@ -41,7 +41,12 @@ export default class App extends React.Component {
       case (nextQuestionId === 'init'):
         setTimeout(() => this.displayNextQuestion(nextQuestionId), 500); // Delay the new chat by 0.5 second.
         break;
-      
+
+      // If the nextQuestionId is 'contact', the modal will open.
+      case (nextQuestionId === 'contact'):
+        this.handleClickOpen();
+        break;
+
       // If the values of nextQuestionId is "https:..........."
       case(/^https:*/.test(nextQuestionId)):   // Codes surrounded by // is the regular expression.
         const a = document.createElement('a'); // Create a new <a> element.
