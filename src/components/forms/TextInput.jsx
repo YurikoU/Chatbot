@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-const TExtInput = (props) => {
+const TextInput = (props) => {
   return (
     <TextField 
       label={props.label} 
@@ -18,5 +18,4 @@ const TExtInput = (props) => {
 }
 
 
-
-
+export default TextInput;

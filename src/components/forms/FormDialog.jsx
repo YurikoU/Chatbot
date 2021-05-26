@@ -21,6 +21,7 @@ export default class FormDialog extends React.Component {
     this.inputDescription = this.inputDescription.bind(this);
   }
 
+   // Whenever the value on the form is changed, inputName(), inputEmail() or inputDescription() works and setState will be updated.
   inputName = (event) => {
     this.setState({ name: event.target.value })
   }
@@ -33,6 +34,13 @@ export default class FormDialog extends React.Component {
     this.setState({ description: event.target.value })
   }
 
+  submitForm = () => {
+    const name = this.state.name;
+    const email = this.state.email;
+    const description = this.state.description;
+
+    
+  }
 
   render() {
     return(
@@ -45,21 +53,37 @@ export default class FormDialog extends React.Component {
       <DialogTitle id="alert-dialog-title">{"How can we help?"}</DialogTitle>
       <DialogContent>
         <TextInput 
-          label={}
-          multiline={}
-          rows={}
-          value={}
-          type={}
-          onChange={}        
+          label={"Name *"}
+          multiline={false}
+          rows={1}
+          value={this.state.name}
+          type={"text"}
+          onChange={this.inputName}        
+        />
+        <TextInput 
+          label={"Email Address *"}
+          multiline={false}
+          rows={1}
+          value={this.state.email}
+          type={"email"}
+          onChange={this.inputEmail}        
+        />
+        <TextInput 
+          label={"Description *"}
+          multiline={true}
+          rows={5}
+          value={this.state.description}
+          type={"text"}
+          onChange={this.inputDescription}        
         />
 
       </DialogContent>
       <DialogActions>
         <Button onClick={this.props.handleClose} color="primary">
-          Disagree
+          cancel
         </Button>
-        <Button onClick={this.props.handleClose} color="primary" autoFocus>
-          Agree
+        <Button onClick={this.submitForm} color="primary" autoFocus>
+          SUBMIT
         </Button>
       </DialogActions>
       </Dialog>
