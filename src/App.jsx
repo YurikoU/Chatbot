@@ -2,6 +2,7 @@ import React from 'react';
 import defaultDataset from "./dataset";
 import './assets/styles/style.css';
 import {AnswersList, Chats} from './components/index';
+import FormDialog from './components/forms/FormDialog';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,7 +14,11 @@ export default class App extends React.Component {
       dataset: defaultDataset,
       open: false
     }
-    this.selectAnswer = this.selectAnswer.bind(this); // selectAnswer is fixed.
+
+    // selectAnswer(), handleClickOpen(), handleClose() are fixed, even if render() works.
+    this.selectAnswer = this.selectAnswer.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
 
@@ -62,7 +67,13 @@ export default class App extends React.Component {
     }
   }
 
+  handleClickOpen = () => {
+    this.setState({ open: true });  // Once handleClickOpen() works, open state will be switched to true. The modal will open.
+  };
 
+  handleClose = () => {
+    this.setState({ open: false }); // Once handleClose() works, open state will be switched to false. The modal will close.
+  };
 
   componentDidMount() {
     const initAnswer = ""; // Initialize the answer
@@ -83,7 +94,8 @@ export default class App extends React.Component {
       <section className="c-section">
         <div className="c-box">
           <Chats chats={this.state.chats} />
-          <AnswersList answers={this.state.answers} select={this.selectAnswer} />        
+          <AnswersList answers={this.state.answers} select={this.selectAnswer} /> 
+          <FormDialog open={this.state.open} handleClose={this.handleClose} />
         </div>       
       </section>
     );
