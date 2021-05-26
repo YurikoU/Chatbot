@@ -34,7 +34,15 @@ export default class App extends React.Component {
   selectAnswer = (selectedAnswer, nextQuestionId) => {
     switch (true) {
       case (nextQuestionId === 'init'):
-        this.displayNextQuestion(nextQuestionId);
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500); // Delay the new chat by 0.5 second.
+        break;
+      
+      // If the values of nextQuestionId is "https:..........."
+      case(/^https:*/.test(nextQuestionId)):   // Codes surrounded by // is the regular expression.
+        const a = document.createElement('a'); // Create a new <a> element.
+        a.href = nextQuestionId; // Set URL as href attribute.
+        a.target = '_blank'; // New page will be opened for the URL.
+        a.click(); // Jump to the URL if <a> is clicked.
         break;
 
       default:
@@ -49,7 +57,7 @@ export default class App extends React.Component {
           chats: chats
         })
 
-        this.displayNextQuestion(nextQuestionId);
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 1000); // Delay the response by 1 second.
         break;
     }
   }
@@ -59,6 +67,15 @@ export default class App extends React.Component {
   componentDidMount() {
     const initAnswer = ""; // Initialize the answer
     this.selectAnswer(initAnswer, this.state.currentId);
+  }
+
+  // Set the top of the scroll bar at the bottom of the scroll area to see the latest chat
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const scrollArea = document.getElementById("scroll-area");
+    if (scrollArea)
+    {
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+    }
   }
 
   render() {
