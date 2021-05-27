@@ -39,7 +39,28 @@ export default class FormDialog extends React.Component {
     const email = this.state.email;
     const description = this.state.description;
 
-    
+    const payload = {
+      text: "You got a new message!\n" +
+            "User's Name: " + name + "\n" +
+            "User's E-mail: " + email + "\n" +
+            "Message by user: \n" + description
+    }
+
+    // 
+    const url = 'https://hooks.slack.com/services/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';
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }).then(() => {
+      alert('Successfully submitted! Thank you for using Chatbot Demo!')
+      this.setState({ // Once the message is sent successfully, each state will be initialized.
+        name: "",
+        email: "",
+        description: ""  
+      })
+      return this.props.handleClose()  // Once the message is sent successfully, the modal will close.
+    })
   }
 
   render() {
