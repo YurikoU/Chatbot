@@ -39,6 +39,7 @@ export default class FormDialog extends React.Component {
     const email = this.state.email;
     const description = this.state.description;
 
+    // The following message will be printed on slack channel, once a user send a new message.
     const payload = {
       text: "You got a new message!\n" +
             "User's Name: " + name + "\n" +
@@ -46,7 +47,7 @@ export default class FormDialog extends React.Component {
             "Message by user: \n" + description
     }
 
-    // 
+    // slack Incoming WebHooks URL
     const url = 'https://hooks.slack.com/services/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';
 
     fetch(url, {
